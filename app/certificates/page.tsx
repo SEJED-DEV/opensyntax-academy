@@ -83,7 +83,7 @@ export default function CertificatesPage() {
         </header>
 
         {mounted && completedCourses.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 px-4 mt-8 border-2 border-dashed border-border rounded-3xl bg-card">
+          <div className="flex flex-col items-center justify-center py-20 px-4 mt-8 glass border-2 border-dashed border-border rounded-3xl">
             <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-muted-foreground mb-4">
               <Award size={24} />
             </div>
@@ -109,7 +109,7 @@ export default function CertificatesPage() {
                   className={`flex items-center justify-between p-4 rounded-xl border transition-all text-left ${
                     activeCert?.slug === course.slug 
                     ? "bg-primary/5 border-primary shadow-sm" 
-                    : "bg-card border-border hover:border-primary/40 hover:bg-secondary"
+                    : "glass hover:border-primary/40"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -125,7 +125,7 @@ export default function CertificatesPage() {
                 </button>
               ))}
               
-              <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+              <div className="mt-6 p-4 glass border-amber-500/20 rounded-xl">
                  <div className="flex items-center gap-2 mb-2 text-amber-600">
                     <AlertCircle size={14} />
                     <p className="text-xs font-bold uppercase tracking-widest">Name Update</p>
@@ -216,7 +216,7 @@ export default function CertificatesPage() {
                   <div className="flex items-center justify-end gap-3 mt-2">
                     <button 
                       onClick={handleDownload}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-border bg-card hover:bg-secondary font-bold text-sm transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 glass rounded-xl hover:bg-secondary font-bold text-sm transition-colors"
                     >
                       <Share2 size={16} /> Share Link
                     </button>

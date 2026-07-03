@@ -33,8 +33,8 @@ export default function NotFound() {
             <Home size={16} />
             Back to Home
           </Link>
-          <Link href="/dashboard"
-            className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary transition-colors">
+          <Link href="/courses"
+            className="inline-flex items-center gap-2 glass rounded-xl border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary transition-colors">
             <BookOpen size={16} />
             Browse Courses
           </Link>
@@ -52,7 +52,7 @@ export default function NotFound() {
               { href: "/courses/ai-ml", label: "AI/ML" },
             ].map((c) => (
               <Link key={c.href} href={c.href}
-                className="text-xs rounded-full border border-border px-4 py-2 text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all">
+                className="text-xs glass rounded-full border border-border px-4 py-2 text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all">
                 {c.label}
               </Link>
             ))}

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/SEO/JsonLd"
 import { ClientWrapper } from "@/components/client-wrapper"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -78,13 +79,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <OrganizationJsonLd url={BASE_URL} />
         <WebsiteJsonLd />
-        <ClientWrapper>
-          {children}
-        </ClientWrapper>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ClientWrapper>
+            {children}
+          </ClientWrapper>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

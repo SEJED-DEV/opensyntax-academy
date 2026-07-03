@@ -96,7 +96,7 @@ const translations: Record<Locale, TranslationKeys> = {
     stat_content: "Video Content",
     stat_free: "Free Forever",
 
-    terminal_welcome_1: "Welcome to OpenSyntax OS v4.0.0.",
+    terminal_welcome_1: "Welcome to OpenSyntax OS v5.0.0.",
     terminal_welcome_2: "Type 'help' to see available commands.",
 
     footer_tagline: "The next evolution of open-source developer education. 100% community-funded, free forever.",
@@ -148,7 +148,7 @@ const translations: Record<Locale, TranslationKeys> = {
     stat_content: "محتوى مرئي",
     stat_free: "مجاني للأبد",
 
-    terminal_welcome_1: "مرحبًا بك في OpenSyntax OS v4.0.0.",
+    terminal_welcome_1: "مرحبًا بك في OpenSyntax OS v5.0.0.",
     terminal_welcome_2: "اكتب 'help' لعرض الأوامر المتاحة.",
 
     footer_tagline: "التطور القادم في تعليم المطورين مفتوح المصدر. ممول مجتمعيًا 100% ومجاني للأبد.",
@@ -200,7 +200,7 @@ const translations: Record<Locale, TranslationKeys> = {
     stat_content: "محتوى فيديو",
     stat_free: "مجاني للأبد",
 
-    terminal_welcome_1: "مرحبا بيك في OpenSyntax OS v4.0.0.",
+    terminal_welcome_1: "مرحبا بيك في OpenSyntax OS v5.0.0.",
     terminal_welcome_2: "اكتب 'help' باش تشوف الأوامر المتاحة.",
 
     footer_tagline: "التطور الجاي في تعليم المطورين مفتوح المصدر. ممول مجتمعيًا 100% ومجاني للأبد.",
@@ -252,7 +252,7 @@ const translations: Record<Locale, TranslationKeys> = {
     stat_content: "Contenu vidéo",
     stat_free: "Gratuit pour toujours",
 
-    terminal_welcome_1: "Bienvenue dans OpenSyntax OS v4.0.0.",
+    terminal_welcome_1: "Bienvenue dans OpenSyntax OS v5.0.0.",
     terminal_welcome_2: "Tapez 'help' pour voir les commandes disponibles.",
 
     footer_tagline: "La prochaine évolution de l'éducation développeur open source. 100% financé par la communauté, gratuit pour toujours.",
@@ -304,7 +304,7 @@ const translations: Record<Locale, TranslationKeys> = {
     stat_content: "Videoinhalt",
     stat_free: "Für immer kostenlos",
 
-    terminal_welcome_1: "Willkommen bei OpenSyntax OS v4.0.0.",
+    terminal_welcome_1: "Willkommen bei OpenSyntax OS v5.0.0.",
     terminal_welcome_2: "Gib 'help' ein, um verfügbare Befehle zu sehen.",
 
     footer_tagline: "Die nächste Evolution der Open-Source-Entwicklerausbildung. 100% community-finanziert, für immer kostenlos.",

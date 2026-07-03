@@ -77,7 +77,7 @@ export function SearchPalette({ open, onClose }: SearchPaletteProps): JSX.Elemen
 
           {/* Palette */}
           <motion.div
-            className="relative w-full max-w-xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden z-10"
+            className="relative w-full max-w-xl glass rounded-2xl shadow-2xl overflow-hidden z-10"
             initial={{ scale: 0.95, y: -10, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: -10, opacity: 0 }}
@@ -149,10 +149,10 @@ export function SearchPalette({ open, onClose }: SearchPaletteProps): JSX.Elemen
             </div>
 
             {/* Footer */}
-            <div className="flex items-center gap-4 px-4 py-2.5 border-t border-border bg-secondary/30">
-              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border text-[9px] font-mono">↑↓</kbd> navigate</span>
-              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border text-[9px] font-mono">↵</kbd> open</span>
-              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border text-[9px] font-mono">esc</kbd> close</span>
+            <div className="flex items-center gap-4 px-4 py-2.5 border-t border-border glass">
+              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border/50 text-code-kw text-[9px] font-mono border border-border/30">↑↓</kbd> navigate</span>
+              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border/50 text-code-kw text-[9px] font-mono border border-border/30">↵</kbd> open</span>
+              <span className="flex items-center gap-1 text-[10px] text-muted-foreground/60"><kbd className="px-1 py-0.5 rounded bg-border/50 text-code-kw text-[9px] font-mono border border-border/30">esc</kbd> close</span>
               <span className="ml-auto flex items-center gap-1 text-[10px] text-muted-foreground/50">
                 <Command size={10} /> K
               </span>

@@ -4,6 +4,7 @@ import { CoursesCatalog } from "@/components/courses-catalog"
 import { FeaturesSection } from "@/components/features-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { CommunityCTA } from "@/components/community-cta"
+import { AdSection } from "@/components/ad-section"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
         <TestimonialsSection />
         <CommunityCTA />
       </main>
+      <AdSection />
       <Footer />
     </div>
   )

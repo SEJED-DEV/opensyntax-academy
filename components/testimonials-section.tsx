@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Quote } from "lucide-react"
+import { Quote, Sparkles } from "lucide-react"
 
 const TESTIMONIALS = [
   {
@@ -50,17 +50,23 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   return (
-    <section className="border-t border-border bg-gradient-to-b from-background to-secondary/20 py-24 sm:py-32 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <motion.p
+    <section className="border-t border-border py-24 sm:py-32 overflow-hidden relative">
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full opacity-[0.03] dark:opacity-[0.05]"
+          style={{ background: "radial-gradient(circle, var(--glow-violet), transparent 60%)" }} />
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-2xl text-center mb-14">
+          <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-sm font-bold text-primary uppercase tracking-widest mb-4"
+            className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-muted-foreground mb-5"
           >
+            <Sparkles size={12} className="text-accent" />
             Community Voices
-          </motion.p>
+          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -68,57 +74,38 @@ export function TestimonialsSection() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl font-black text-foreground tracking-tight"
           >
-            Trusted by developers<br />at every level
+            Trusted by developers<br />at <span className="text-gradient">every level</span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-lg leading-8 text-muted-foreground"
-          >
-            From juniors landing their first role to senior engineers sharpening their edge — hear what they have to say.
-          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {TESTIMONIALS.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08, type: "spring", stiffness: 100 }}
-              className="group relative flex flex-col rounded-3xl border border-border bg-background p-7 shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300"
+              transition={{ delay: i * 0.06, type: "spring", stiffness: 100 }}
+              className="group relative flex flex-col rounded-2xl glass p-6 hover:shadow-xl transition-all duration-300"
             >
-              {/* Quote icon */}
-              <Quote
-                size={28}
-                className="text-primary/15 mb-4 group-hover:text-primary/30 transition-colors"
-              />
-
-              {/* Quote text */}
-              <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6 group-hover:text-foreground/80 transition-colors">
+              <Quote size={22} className="text-accent/20 mb-3 group-hover:text-accent/40 transition-colors" />
+              <p className="text-xs text-muted-foreground/70 leading-relaxed flex-1 mb-5 group-hover:text-foreground/80 transition-colors">
                 &ldquo;{t.quote}&rdquo;
               </p>
-
-              {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-border">
+              <div className="flex items-center gap-3 pt-4 border-t border-border/50">
                 <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
                   style={{ background: `linear-gradient(135deg, ${t.accentColor}, ${t.accentColor}99)` }}
                 >
                   {t.avatar}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-foreground">{t.name}</p>
-                  <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                  <p className="text-xs font-bold text-foreground">{t.name}</p>
+                  <p className="text-[10px] text-muted-foreground/60">{t.role}</p>
                 </div>
               </div>
-
-              {/* Hover glow */}
               <div
-                className="absolute -right-6 -bottom-6 h-24 w-24 rounded-full blur-[50px] opacity-0 group-hover:opacity-15 transition-opacity pointer-events-none"
+                className="absolute -right-4 -bottom-4 h-16 w-16 rounded-full blur-[40px] opacity-0 group-hover:opacity-20 transition-opacity pointer-events-none"
                 style={{ background: t.accentColor }}
               />
             </motion.div>

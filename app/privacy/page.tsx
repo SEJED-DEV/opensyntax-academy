@@ -19,14 +19,14 @@ export default function PrivacyPage() {
         </div>
 
         <div className="space-y-8 text-sm text-muted-foreground leading-relaxed">
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">1. Introduction</h2>
             <p>
               OpenSyntax (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your personal data and your right to privacy. This Privacy Policy explains what information we collect, how we use it, and your rights under applicable data protection laws including the General Data Protection Regulation (GDPR — EU 2016/679) and comparable international frameworks.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">2. Data We Collect</h2>
             <p>OpenSyntax collects minimal data. As an open-source, client-side learning platform:</p>
             <ul className="mt-3 space-y-2 list-disc list-inside">
@@ -41,14 +41,14 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">3. Legal Basis for Processing (GDPR)</h2>
             <p>
               Where GDPR applies, our legal basis for any processing of personal data is <strong className="text-foreground">Legitimate Interests</strong> (Article 6(1)(f)) — specifically, the interest of maintaining platform security and improving service quality through aggregated, anonymous analytics. We do not process special category data.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">4. Third-Party Services</h2>
             <p>OpenSyntax is hosted on <strong className="text-foreground">Vercel</strong>. By using the platform, you are subject to Vercel&apos;s{" "}
               <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">Privacy Policy</a>.
@@ -58,14 +58,14 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">5. Data Retention</h2>
             <p>
               As we do not collect personal data, there is no personal data to retain or delete. Anonymous analytics data is retained in aggregated form for up to 12 months to understand platform usage trends.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">6. Your Rights (GDPR & International)</h2>
             <p>Depending on your jurisdiction, you may have the following rights:</p>
             <ul className="mt-3 space-y-2 list-disc list-inside">
@@ -80,28 +80,28 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">7. International Transfers</h2>
             <p>
               Our platform is served globally via Vercel&apos;s edge network. By using the Service, your requests may be processed in data centers outside your country of residence. Vercel maintains Standard Contractual Clauses (SCCs) for cross-border data transfers in compliance with GDPR.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">8. Children&apos;s Privacy</h2>
             <p>
               OpenSyntax is not directed at children under the age of 13 (or 16 in the EEA). We do not knowingly collect personal information from minors. If you believe a minor has provided personal information, please contact us immediately.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">9. Changes to This Policy</h2>
             <p>
               We may update this Privacy Policy periodically. Significant changes will be announced in our Instagram page. Continued use of the Service after changes constitutes acceptance of the updated policy.
             </p>
           </section>
 
-          <section>
+          <section className="glass rounded-2xl p-6">
             <h2 className="text-base font-semibold text-foreground mb-3">10. Contact & Data Controller</h2>
             <p>
               OpenSyntax is an open-source community project. For privacy-related inquiries, please contact the project maintainers via our{" "}

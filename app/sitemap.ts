@@ -5,7 +5,7 @@ const BASE_URL = "https://opensyntax-academy.vercel.app"
 const staticRoutes: Array<{ path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[0]["changeFrequency"] }> = [
   { path: "",              priority: 1.0,  changeFrequency: "weekly"  },
   { path: "/courses",      priority: 0.95, changeFrequency: "weekly"  },
-  { path: "/dashboard",    priority: 0.8,  changeFrequency: "weekly"  },
+
   { path: "/changelog",    priority: 0.6,  changeFrequency: "monthly" },
   { path: "/contributing", priority: 0.6,  changeFrequency: "monthly" },
   { path: "/status",       priority: 0.5,  changeFrequency: "daily"   },

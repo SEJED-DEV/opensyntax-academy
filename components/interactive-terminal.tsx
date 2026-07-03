@@ -127,7 +127,7 @@ export function InteractiveTerminal() {
     } else if (trimmed === "latest") {
       output = (
         <div className="text-amber-200">
-          <p className="text-white font-bold">🚀 v4.0.0 — Multi-Language Release</p>
+          <p className="text-white font-bold">🚀 v5.0.0 — VS Code Glass Redesign</p>
           <p className="mt-1 text-emerald-300">+ Multi-language support (EN, AR, TN, FR, DE)</p>
           <p className="text-emerald-300">+ RTL layout for Arabic & Tunisian</p>
           <p className="text-emerald-300">+ Known Bugs page added to nav</p>
@@ -139,7 +139,7 @@ export function InteractiveTerminal() {
     } else if (trimmed === "version") {
       output = (
         <div className="text-purple-300">
-          <p>OpenSyntax OS <span className="text-white font-bold">v4.0.0</span></p>
+          <p>OpenSyntax OS <span className="text-white font-bold">v5.0.0</span></p>
           <p className="text-gray-500 text-xs mt-1">Built with Next.js 16 · React 19 · Framer Motion</p>
           <p className="text-gray-500 text-xs">i18n: EN · AR (RTL) · TN (RTL) · FR · DE</p>
         </div>

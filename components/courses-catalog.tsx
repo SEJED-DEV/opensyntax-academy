@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Clock, BookOpen, Star, User } from "lucide-react"
+import { Clock, BookOpen, Star, User, Sparkles, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 type Course = {
@@ -48,303 +48,308 @@ const COURSES: Course[] = [
     duration: "8h 40m", modules: 6, lessons: 18,
     tags: ["Next.js", "TypeScript", "React", "Edge", "PWA"],
     instructor: "Sarah Drasner", rating: 4.9, reviewCount: 1250,
-    prerequisites: ["React Basics", "TypeScript"], lastUpdated: "Mar 2026"
+    prerequisites: ["JavaScript", "HTML/CSS"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/discord",
-    title: "Advanced Discord Development",
-    subtitle: "discord.py · Cogs · Sharding · PostgreSQL",
-    description: "Production-grade Discord bot architecture with hot-reloadable Cogs, horizontal sharding via AutoShardedClient, connection pooling with asyncpg, Redis caching, and cross-shard IPC.",
-    icon: "◈", iconColor: "#7289DA",
-    category: "Discord", difficulty: "Advanced",
-    duration: "10h 20m", modules: 5, lessons: 22,
-    tags: ["Python", "discord.py", "PostgreSQL", "Redis", "Docker"],
-    instructor: "Danny", rating: 4.8, reviewCount: 4200,
-    prerequisites: ["Python OOP", "AsyncIO"], lastUpdated: "Feb 2026"
+    title: "Discord Development",
+    subtitle: "discord.py · AutoSharding · Modals",
+    description: "Build production-scale Discord bots. Covering hybrid command trees, auto-sharding for 100k+ guilds, ephemeral modals, and advanced permission orchestration.",
+    icon: "⬡", iconColor: "#7289DA",
+    category: "Discord", difficulty: "Intermediate",
+    duration: "9h 20m", modules: 6, lessons: 20,
+    tags: ["discord.py", "Sharding", "Modals", "Cogs"],
+    instructor: "Sejed", rating: 4.8, reviewCount: 980,
+    prerequisites: ["Python fundamentals"], lastUpdated: "Feb 2026"
   },
   {
     href: "/courses/python",
     title: "Python & Data Science",
-    subtitle: "NumPy · Pandas · Matplotlib · Scikit-learn",
-    description: "Build a complete data science toolkit. Vectorized computation with NumPy broadcasting, multi-level Pandas indexing, rolling windows, memory-efficient categoricals, and end-to-end ML pipelines.",
-    icon: "◎", iconColor: "#FFD43B",
+    subtitle: "Pandas · Visualization · ML Pipelines",
+    description: "From data wrangling to production ML. Python ecosystem mastery including Pandas, NumPy, Matplotlib, scikit-learn, and automated ML pipelines with proper testing.",
+    icon: "⬡", iconColor: "#FFD43B",
     category: "AI & Data", difficulty: "Intermediate",
-    duration: "12h 15m", modules: 5, lessons: 24,
-    tags: ["Python", "NumPy", "Pandas", "Scikit-learn"],
-    instructor: "Wes McKinney", rating: 4.9, reviewCount: 8100,
-    prerequisites: ["Python Syntax"], lastUpdated: "Jan 2026"
+    duration: "12h 40m", modules: 10, lessons: 24,
+    tags: ["Python", "Pandas", "ML", "NumPy"],
+    instructor: "OpenSyntax Academy", rating: 4.7, reviewCount: 1120,
+    prerequisites: ["Basic Python"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/ai-ml",
     title: "AI/ML Engineering",
-    subtitle: "Transformers · RAG · Fine-tuning · MLOps",
-    description: "Build production AI systems end-to-end. Hybrid RAG pipelines with Qdrant, cross-encoder reranking, LoRA fine-tuning, MLflow experiment tracking, and drift monitoring in production.",
-    icon: "◉", iconColor: "#A259FF",
+    subtitle: "LLMs · RAG · Fine-tuning · MLOps",
+    description: "Full-stack AI engineering. Instruction fine-tuning, RAG architectures with vector databases, RLHF basics, model serving with vLLM, and MLOps with MLflow & DVC.",
+    icon: "⬡", iconColor: "#A259FF",
     category: "AI & Data", difficulty: "Advanced",
-    duration: "14h 30m", modules: 6, lessons: 28,
-    tags: ["PyTorch", "HuggingFace", "LangChain", "Qdrant", "MLflow"],
-    instructor: "Harrison Chase", rating: 5.0, reviewCount: 950,
-    prerequisites: ["Python", "Linear Algebra Foundations"], lastUpdated: "Mar 2026"
+    duration: "11h 50m", modules: 9, lessons: 22,
+    tags: ["LLMs", "RAG", "MLOps", "Fine-tuning"],
+    instructor: "Andrej K.", rating: 4.9, reviewCount: 870,
+    prerequisites: ["Python", "Statistics"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/typescript",
     title: "TypeScript Mastery",
-    subtitle: "Conditional Types · Generics · Template Literals",
-    description: "Move beyond basic TypeScript into the type system's most powerful features. Conditional types, infer keyword, mapped type modifiers, template literal types, and type-safe API patterns.",
+    subtitle: "Generics · Conditional Types · Zod · tRPC",
+    description: "Deep TypeScript. Advanced generics, template literal types, conditional branching with infer, brand types for nominal typing, Zod schemas, and end-to-end tRPC patterns.",
     icon: "⬡", iconColor: "#3178C6",
     category: "Web", difficulty: "Advanced",
-    duration: "9h 45m", modules: 5, lessons: 20,
-    tags: ["TypeScript", "Generics", "Decorators", "tRPC", "Zod"],
-    instructor: "Matt Pocock", rating: 4.9, reviewCount: 3400,
-    prerequisites: ["JavaScript Fundamentals"], lastUpdated: "Dec 2025"
+    duration: "8h 50m", modules: 6, lessons: 18,
+    tags: ["TypeScript", "Zod", "tRPC", "Generics"],
+    instructor: "Matt P.", rating: 4.8, reviewCount: 760,
+    prerequisites: ["JavaScript", "Basic TS"], lastUpdated: "Feb 2026"
   },
   {
     href: "/courses/devops",
-    title: "DevOps & Cloud Engineering",
-    subtitle: "Docker · Kubernetes · Terraform · CI/CD",
-    description: "Design and operate production infrastructure. Kubernetes rolling deployments with PodDisruptionBudgets, Terraform IaC, GitOps with ArgoCD, and full-stack observability with OpenTelemetry.",
-    icon: "⬡", iconColor: "#0DB7ED",
-    category: "DevOps", difficulty: "Intermediate",
-    duration: "11h 00m", modules: 6, lessons: 26,
-    tags: ["Docker", "Kubernetes", "Terraform", "GitHub Actions"],
-    instructor: "Kelsey Hightower", rating: 4.8, reviewCount: 1600,
-    prerequisites: ["Terminal/CLI usage"], lastUpdated: "Feb 2026"
+    title: "DevOps & Cloud",
+    subtitle: "Kubernetes · Terraform · Prometheus",
+    description: "Infrastructure as code with Terraform, Kubernetes cluster administration, Helm chart authoring, Prometheus monitoring, GitHub Actions CI/CD, and Vercel deployments.",
+    icon: "⬡", iconColor: "#38BDF8",
+    category: "DevOps", difficulty: "Advanced",
+    duration: "9h 30m", modules: 7, lessons: 18,
+    tags: ["Kubernetes", "Terraform", "GitHub Actions", "Docker"],
+    instructor: "Kelsey H.", rating: 4.7, reviewCount: 1050,
+    prerequisites: ["Linux basics", "Networking"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/databases",
     title: "Database Engineering",
-    subtitle: "PostgreSQL Internals · Query Optimization · Redis",
-    description: "Understand databases at the internals level. EXPLAIN ANALYZE mastery, B-tree vs GIN vs BRIN index strategies, MVCC, vacuum tuning, Redis data structures, and schema design for high-write workloads.",
-    icon: "◈", iconColor: "#336791",
-    category: "Systems", difficulty: "Advanced",
-    duration: "10h 30m", modules: 5, lessons: 22,
-    tags: ["PostgreSQL", "Redis", "Indexing", "EXPLAIN"],
-    instructor: "Martin Kleppmann", rating: 5.0, reviewCount: 1100,
-    prerequisites: ["SQL Basics"], lastUpdated: "Mar 2026"
+    subtitle: "PostgreSQL Internals · Indexing · ACID",
+    description: "Master PostgreSQL from the inside out. B-tree internals, query planning, index strategies, ACID compliance, connection pooling, and normalization vs. denormalization trade-offs.",
+    icon: "⬡", iconColor: "#336791",
+    category: "Systems", difficulty: "Intermediate",
+    duration: "7h 10m", modules: 5, lessons: 12,
+    tags: ["PostgreSQL", "SQL", "Indexing", "ACID"],
+    instructor: "OpenSyntax Academy", rating: 4.6, reviewCount: 690,
+    prerequisites: ["Basic SQL"], lastUpdated: "Jan 2026"
   },
   {
     href: "/courses/react-patterns",
     title: "React Advanced Patterns",
-    subtitle: "Compound Components · Suspense · Performance",
-    description: "Master the patterns used by world-class React libraries. Compound components with implicit context, render prop patterns, Suspense architecture, concurrent features, and React Profiler-driven optimization.",
-    icon: "◉", iconColor: "#61DAFB",
-    category: "Web", difficulty: "Intermediate",
-    duration: "8h 20m", modules: 4, lessons: 18,
-    tags: ["React", "Hooks", "Suspense", "Performance"],
-    instructor: "Dan Abramov", rating: 4.7, reviewCount: 2200,
-    prerequisites: ["React Basics"], lastUpdated: "Nov 2025"
+    subtitle: "Hooks Deep · Concurrency · Virtualization",
+    description: "Production React patterns. Compound components with context, render props vs. hooks, concurrent mode with useTransition, virtualization with react-window, and state machines with XState.",
+    icon: "⬡", iconColor: "#61DAFB",
+    category: "Web", difficulty: "Advanced",
+    duration: "7h 40m", modules: 5, lessons: 16,
+    tags: ["React", "Hooks", "Zustand", "XState"],
+    instructor: "Dan A.", rating: 4.9, reviewCount: 1340,
+    prerequisites: ["React basics", "TypeScript"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/cybersecurity",
-    title: "Cybersecurity Fundamentals",
-    subtitle: "OWASP Top 10 · Secure Coding · Auth · CSP",
-    description: "Understand web security from an attacker's perspective to defend like an expert. Injection attacks, XSS with Content Security Policy, secure JWT patterns, OAuth 2.0, and CSRF prevention.",
-    icon: "◎", iconColor: "#FF4D4D",
+    title: "Cybersecurity",
+    subtitle: "XSS · SQLi · JWT/OAuth · CSRF",
+    description: "Offensive and defensive security. XSS vectors, SQL injection prevention, JWT signing algorithms, OAuth 2.0 flows, CSRF tokens, CSP headers, and OWASP Top 10 deep dive.",
+    icon: "⬡", iconColor: "#FF4D4D",
     category: "Security", difficulty: "Intermediate",
-    duration: "9h 10m", modules: 5, lessons: 21,
-    tags: ["OWASP", "OAuth", "JWT", "XSS", "SQLi", "CSP"],
-    instructor: "Tanya Janca", rating: 4.8, reviewCount: 890,
-    prerequisites: ["Web Protocols (HTTP)"], lastUpdated: "Jan 2026"
+    duration: "6h 30m", modules: 5, lessons: 14,
+    tags: ["XSS", "SQLi", "OAuth", "OWASP"],
+    instructor: "Tanya J.", rating: 4.8, reviewCount: 820,
+    prerequisites: ["Web fundamentals"], lastUpdated: "Feb 2026"
   },
   {
     href: "/courses/blockchain",
-    title: "Blockchain & Web3 Engineering",
-    subtitle: "Solidity · DeFi · Smart Contracts · Hardhat",
-    description: "Build production-grade smart contracts on EVM chains. Solidity security patterns, reentrancy guards, gas optimization, DeFi protocol design, OpenZeppelin modules, and Hardhat testing suites.",
+    title: "Blockchain & Web3",
+    subtitle: "Solidity · Smart Contracts · DeFi",
+    description: "Ethereum development. Solidity patterns (Ownable, ReentrancyGuard), ERC-20/721 tokens, Hardhat testing, DeFi primitives, and smart contract security auditing.",
     icon: "⬡", iconColor: "#F6851B",
     category: "Blockchain", difficulty: "Advanced",
-    duration: "13h 40m", modules: 5, lessons: 22,
-    tags: ["Solidity", "Hardhat", "OpenZeppelin", "DeFi", "EVM"],
-    instructor: "Patrick Collins", rating: 4.9, reviewCount: 310,
-    prerequisites: ["JavaScript", "Basic Cryptography"], lastUpdated: "Feb 2026"
+    duration: "8h 20m", modules: 6, lessons: 16,
+    tags: ["Solidity", "Hardhat", "DeFi", "Ethers"],
+    instructor: "OpenSyntax Academy", rating: 4.5, reviewCount: 540,
+    prerequisites: ["JavaScript", "Basic crypto"], lastUpdated: "Jan 2026"
   },
   {
     href: "/courses/mobile",
-    title: "Mobile Engineering · React Native",
-    subtitle: "Expo Router · Reanimated 3 · Native Modules",
-    description: "Build production React Native apps for iOS and Android. Gesture-driven 60fps animations with Reanimated 3 worklets, Expo Router file-based navigation, native module bridging, and EAS CI/CD.",
-    icon: "◉", iconColor: "#3DDC84",
+    title: "Mobile Engineering",
+    subtitle: "React Native · Expo · Reanimated",
+    description: "Cross-platform mobile development with React Native & Expo. Shared navigation, Reanimated 3 gestures, Skia custom renders, offline-first with WatermelonDB, and app store deployment.",
+    icon: "⬡", iconColor: "#FF6B6B",
     category: "Mobile", difficulty: "Intermediate",
-    duration: "10h 50m", modules: 5, lessons: 22,
-    tags: ["React Native", "Expo", "Reanimated", "TypeScript"],
-    instructor: "Evan Bacon", rating: 4.8, reviewCount: 2040,
-    prerequisites: ["React Basics"], lastUpdated: "Mar 2026"
+    duration: "7h 50m", modules: 5, lessons: 14,
+    tags: ["React Native", "Expo", "Reanimated", "Skia"],
+    instructor: "OpenSyntax Academy", rating: 4.4, reviewCount: 420,
+    prerequisites: ["React", "TypeScript"], lastUpdated: "Feb 2026"
   },
   {
     href: "/courses/system-design",
     title: "System Design",
-    subtitle: "Load Balancers · Sharding · Queues · CDN",
-    description: "Master scalable distributed systems. Load balancers with consistent hashing, database sharding, multi-layer caching, message queues, rate limiting, and real-world case studies from companies serving billions.",
+    subtitle: "Kafka · Redis · Sharding · Rate Limiting",
+    description: "Distributed systems design. Event-driven with Kafka, caching strategies with Redis, database sharding patterns, rate limiting algorithms, CDN architecture, and CAP theorem trade-offs.",
     icon: "⬡", iconColor: "#E44D26",
     category: "Systems", difficulty: "Advanced",
-    duration: "12h 20m", modules: 3, lessons: 8,
-    tags: ["Architecture", "Distributed Systems", "Redis", "Kafka"],
-    instructor: "Alex Xu", rating: 4.9, reviewCount: 5600,
-    prerequisites: ["Database Basics", "Networking"], lastUpdated: "Mar 2026"
+    duration: "6h 40m", modules: 4, lessons: 12,
+    tags: ["Kafka", "Redis", "Design", "Distributed"],
+    instructor: "OpenSyntax Academy", rating: 4.7, reviewCount: 580,
+    prerequisites: ["Backend experience"], lastUpdated: "Mar 2026"
   },
   {
     href: "/courses/rust",
     title: "Rust & Systems Programming",
-    subtitle: "Borrow Checker · Tokio · WebAssembly",
-    description: "Master Rust's ownership model, compile-time memory safety, fearless threading, async programming with Tokio run-time, and compiling high-performance WebAssembly modules for the web.",
-    icon: "◈", iconColor: "#DEA584",
+    subtitle: "WASM · Tokio · Ownership · Borrowing",
+    description: "Systems programming with Rust. Ownership model, lifetimes, async/await with Tokio, WebAssembly compilation, FFI with C, and building CLI tools with clap.",
+    icon: "⬡", iconColor: "#DEA584",
     category: "Systems", difficulty: "Advanced",
-    duration: "14h 00m", modules: 3, lessons: 10,
-    tags: ["Rust", "WASM", "Tokio", "Concurrency"],
-    instructor: "Steve Klabnik", rating: 4.9, reviewCount: 4300,
-    prerequisites: ["Systems Knowledge"], lastUpdated: "Mar 2026"
+    duration: "4h 20m", modules: 3, lessons: 8,
+    tags: ["Rust", "WASM", "Tokio", "CLI"],
+    instructor: "OpenSyntax Academy", rating: 4.6, reviewCount: 310,
+    prerequisites: ["Programming experience"], lastUpdated: "Feb 2026"
   },
 ]
 
-const DIFFICULTY_STYLES = {
-  Beginner:     "bg-emerald-50 text-emerald-600 border-emerald-200",
-  Intermediate: "bg-amber-50 text-amber-600 border-amber-200",
-  Advanced:     "bg-orange-50 text-orange-600 border-orange-200",
-}
-
-const CATEGORIES = ["All", "Foundations", "Web", "AI & Data", "DevOps", "Systems", "Security", "Blockchain", "Mobile", "Discord"]
+const CATEGORIES = [
+  { key: "All", label: "All Paths" },
+  { key: "Foundations", label: "Foundations" },
+  { key: "Web", label: "Web" },
+  { key: "AI & Data", label: "AI & Data" },
+  { key: "DevOps", label: "DevOps" },
+  { key: "Systems", label: "Systems" },
+  { key: "Security", label: "Security" },
+  { key: "Blockchain", label: "Blockchain" },
+  { key: "Mobile", label: "Mobile" },
+  { key: "Discord", label: "Discord" },
+]
 
 export function CoursesCatalog() {
-  const [activeCategory, setActiveCategory] = useState("All")
+  const [filter, setFilter] = useState("All")
 
-  const filteredCourses = COURSES.filter(c => activeCategory === "All" || c.category === activeCategory)
+  const filtered = filter === "All" ? COURSES : COURSES.filter(c => c.category === filter)
+  const featured = filtered[0]
+  const rest = filtered.slice(1)
 
   return (
-    <section id="courses" className="bg-gradient-to-b from-secondary/30 to-background border-t border-border pt-24 pb-32">
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Header & Filter */}
-        <div className="mb-16">
-          <p className="text-sm font-bold text-primary uppercase tracking-widest mb-3">Course Library</p>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">
-              Choose Your Path
-            </h2>
-            <div className="flex flex-wrap gap-2 max-w-2xl">
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
-                    activeCategory === cat 
-                      ? 'bg-foreground text-background shadow-md transform scale-105' 
-                      : 'bg-background border border-border text-muted-foreground hover:bg-secondary/80 hover:text-foreground'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+    <section id="courses" className="border-t border-border py-20 sm:py-28 relative overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:text-center mb-12">
+          <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-muted-foreground mb-5">
+            <Sparkles size={12} className="text-accent" />
+            {COURSES.length} Courses · 250+ Lessons
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-foreground tracking-tight">
+            Master <span className="text-gradient">every layer</span> of the stack
+          </h2>
+          <p className="mt-4 text-sm text-muted-foreground/70 max-w-lg mx-auto">
+            From bare-metal logic to AI orchestration — each path is tiered for progressive mastery.
+          </p>
         </div>
 
-        {/* Grid Engine */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence>
-            {filteredCourses.length > 0 ? (
-              filteredCourses.map((course, idx) => (
-                <motion.div
-                  key={course.href}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                >
-                  <Link
-                    href={course.href}
-                    className="group relative flex flex-col h-full rounded-3xl border border-border bg-background p-6 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300 overflow-hidden"
-                  >
-                    {/* Premium Subtle Gradient Top Border */}
-                    <div className="absolute inset-x-0 top-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: `linear-gradient(90deg, transparent, ${course.iconColor}, transparent)` }} />
+        {/* Filter */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setFilter(cat.key)}
+              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                filter === cat.key
+                  ? "glass text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
 
-                    {/* Header: Icon, Difficulty, Rating */}
-                    <div className="flex items-start justify-between mb-5">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-2xl border border-border text-2xl shadow-sm bg-gradient-to-br from-background to-secondary group-hover:scale-110 transition-transform duration-300"
-                        style={{ color: course.iconColor }}>
-                        {course.icon}
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                         <span className={`text-[10px] font-bold px-3 py-1 rounded-full border ${DIFFICULTY_STYLES[course.difficulty]}`}>
-                          {course.difficulty}
-                        </span>
-                        <div className="flex items-center gap-1 bg-amber-50 rounded-full px-2 py-0.5 border border-amber-100">
-                          <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                          <span className="text-[10px] font-bold text-amber-700">{course.rating}</span>
-                          <span className="text-[10px] text-amber-600/60">({course.reviewCount})</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Title Area */}
-                    <div className="mb-4 flex-1">
-                      <h3 className="font-black text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {course.title}
-                      </h3>
-                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: course.iconColor }}>
-                        {course.subtitle}
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {course.description}
-                      </p>
-                    </div>
-
-                    <div className="space-y-4 pt-4 border-t border-border">
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {course.tags.slice(0, 3).map((t) => (
-                          <span key={t} className="text-[10px] px-2.5 py-1 rounded-md bg-secondary font-mono text-muted-foreground font-semibold">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Meta: Instructor, Duration, Lessons */}
-                      <div className="flex flex-wrap items-center justify-between text-xs text-muted-foreground">
-                         <div className="flex items-center gap-1.5">
-                           <User className="w-3.5 h-3.5" />
-                           <span className="font-bold">{course.instructor}</span>
-                         </div>
-                         <div className="flex items-center gap-3">
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5" />{course.duration}
-                          </span>
-                          <span className="flex items-center gap-1 font-bold text-foreground">
-                            <BookOpen className="w-3.5 h-3.5" />{course.lessons}
-                          </span>
-                         </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))
-            ) : (
-              <motion.div
-                key="empty-state"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                className="col-span-full py-20 px-6 flex flex-col items-center justify-center text-center border-2 border-dashed border-border rounded-3xl bg-secondary/10"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-6 shadow-inner text-primary">
-                  <Star className="w-8 h-8 opacity-80" />
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-foreground mb-3 tracking-tight">Course in Development</h3>
-                <p className="text-muted-foreground max-w-md mb-8 leading-relaxed">
-                  We are currently crafting high-quality lessons for the <span className="font-bold text-foreground">{activeCategory}</span> category. Want to speed things up or request a specific topic?
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filter}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-6"
+          >
+            {filtered.length === 0 ? (
+              <div className="flex flex-col items-center gap-4 py-20 text-muted-foreground">
+                <BookOpen size={32} className="opacity-30" />
+                <p className="text-sm">Course in Development</p>
+                <p className="text-xs text-muted-foreground/60">Request it on{" "}
+                  <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer" className="text-accent underline">Instagram</a>
                 </p>
-                <a
-                  href="https://www.instagram.com/http.sejed.official/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  Request on Instagram
-                </a>
-              </motion.div>
+              </div>
+            ) : (
+              <>
+                {/* Featured card */}
+                {featured && (
+                  <Link href={featured.href} className="group block">
+                    <motion.div
+                      layout
+                      className="glass rounded-3xl p-8 sm:p-10 relative overflow-hidden hover:shadow-xl transition-all duration-500"
+                    >
+                      <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-10"
+                        style={{ background: `radial-gradient(circle, ${featured.iconColor}, transparent 70%)` }} />
+                      <div className="relative z-10 flex flex-col sm:flex-row items-start gap-6">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl shrink-0 text-2xl"
+                          style={{ background: featured.iconColor + "20", border: `1px solid ${featured.iconColor}30` }}>
+                          {featured.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-3 mb-2">
+                            <span className="text-xs font-bold text-gradient">{featured.difficulty}</span>
+                            <span className="text-[10px] text-muted-foreground/50">·</span>
+                            {featured.tags.slice(0, 3).map(tag => (
+                              <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full glass text-muted-foreground">{tag}</span>
+                            ))}
+                          </div>
+                          <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-accent transition-colors">{featured.title}</h3>
+                          <p className="text-xs text-muted-foreground/70 mt-1">{featured.subtitle}</p>
+                          <p className="text-sm text-muted-foreground/60 mt-3 leading-relaxed max-w-2xl">{featured.description}</p>
+                          <div className="flex flex-wrap items-center gap-4 mt-4 text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1.5"><Clock size={12} />{featured.duration}</span>
+                            <span className="flex items-center gap-1.5"><BookOpen size={12} />{featured.lessons} lessons</span>
+                            <span className="flex items-center gap-1.5"><User size={12} />{featured.instructor}</span>
+                            <span className="flex items-center gap-1.5"><Star size={12} className="text-amber-400" />{featured.rating}</span>
+                          </div>
+                        </div>
+                        <ArrowRight size={20} className="text-muted-foreground/30 group-hover:text-accent group-hover:translate-x-1 transition-all shrink-0 hidden sm:block" />
+                      </div>
+                    </motion.div>
+                  </Link>
+                )}
+
+                {/* Rest of courses */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rest.map((course, i) => (
+                    <Link key={course.href} href={course.href} className="group block">
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.03 }}
+                        className="glass rounded-2xl p-6 h-full relative overflow-hidden hover:shadow-xl transition-all duration-500 group"
+                      >
+                        <div className="absolute -right-8 -top-8 w-24 h-24 rounded-full opacity-5"
+                          style={{ background: `radial-gradient(circle, ${course.iconColor}, transparent 70%)` }} />
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl text-lg"
+                              style={{ background: course.iconColor + "20", border: `1px solid ${course.iconColor}25` }}>
+                              {course.icon}
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              course.difficulty === "Beginner" ? "text-code-num bg-code-num/10" :
+                              course.difficulty === "Intermediate" ? "text-code-str bg-code-str/10" :
+                              "text-code-kw bg-code-kw/10"
+                            }`}>
+                              {course.difficulty}
+                            </span>
+                          </div>
+                          <h3 className="text-sm font-bold text-foreground group-hover:text-accent transition-colors mb-1">{course.title}</h3>
+                          <p className="text-[11px] text-muted-foreground/60 mb-3">{course.subtitle}</p>
+                          <p className="text-xs text-muted-foreground/50 leading-relaxed line-clamp-2 mb-4">{course.description}</p>
+                          <div className="flex flex-wrap items-center gap-3 text-[10px] text-muted-foreground/60">
+                            <span className="flex items-center gap-1"><Clock size={10} />{course.duration}</span>
+                            <span className="flex items-center gap-1"><BookOpen size={10} />{course.lessons}</span>
+                            <span className="flex items-center gap-1 text-amber-400/80"><Star size={10} />{course.rating}</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  ))}
+                </div>
+              </>
             )}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   )

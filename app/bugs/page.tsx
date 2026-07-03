@@ -59,6 +59,56 @@ const resolvedBugs = [
     plannedFix: "v4.1.0 ✓",
     resolvedIn: "v4.1.0",
   },
+  {
+    id: "BRD-001",
+    title: "Discord Logo in Community CTA",
+    severity: "Low",
+    status: "Fixed",
+    description: "The Community CTA button was using Discord's SVG icon instead of Instagram's camera icon.",
+    workaround: "Fixed in v5.0.0 — Replaced with the correct Instagram icon path.",
+    plannedFix: "v5.0.0 ✓",
+    resolvedIn: "v5.0.0",
+  },
+  {
+    id: "BRD-002",
+    title: "Dashboard Removed",
+    severity: "Medium",
+    status: "Fixed",
+    description: "The /dashboard page was removed entirely since localStorage progress was not persistent across browser sessions.",
+    workaround: "Fixed in v5.0.0 — Dashboard page and all navigation references have been removed.",
+    plannedFix: "v5.0.0 ✓",
+    resolvedIn: "v5.0.0",
+  },
+  {
+    id: "BRD-003",
+    title: "Navbar Dropdown Hover Gap",
+    severity: "Low",
+    status: "Fixed",
+    description: "An invisible gap between navbar dropdown buttons and their menus caused premature closing on hover. Touch devices also lacked proper support.",
+    workaround: "Fixed in v5.0.0 — Hover gap eliminated and click-to-toggle support added for touch devices.",
+    plannedFix: "v5.0.0 ✓",
+    resolvedIn: "v5.0.0",
+  },
+  {
+    id: "BRD-004",
+    title: "Template Literal Escapes in Course Content",
+    severity: "Medium",
+    status: "Fixed",
+    description: "5 course pages contained raw `${}` and backtick characters in code examples that broke the Next.js build.",
+    workaround: "Fixed in v5.0.0 — All template literal syntax was properly escaped in cybersecurity, rust, mobile, system-design, and discord courses.",
+    plannedFix: "v5.0.0 ✓",
+    resolvedIn: "v5.0.0",
+  },
+  {
+    id: "BRD-005",
+    title: "i18n Nav Keys for Dashboard",
+    severity: "Low",
+    status: "Fixed",
+    description: "Translation references to the dashboard navigation item remained in i18n locale files after the dashboard was removed.",
+    workaround: "Fixed in v5.0.0 — All i18n references to the dashboard navigation key have been removed.",
+    plannedFix: "v5.0.0 ✓",
+    resolvedIn: "v5.0.0",
+  },
 ]
 
 const currentBugs = [
@@ -71,6 +121,15 @@ const currentBugs = [
     workaround: "Use a browser that supports localStorage, or set your browser's privacy level to Standard. The language switcher functions correctly on first selection within the session.",
     plannedFix: "v4.0.x",
   },
+  {
+    id: "SYN-001",
+    title: "Progress Not Synced Across Devices",
+    severity: "Medium",
+    status: "Acknowledged",
+    description: "Since the dashboard was removed in v5.0.0, there is no cloud sync mechanism. Progress is stored locally in the browser and does not persist across different devices or browsers.",
+    workaround: "Currently, progress is saved locally per browser. To access your progress on another device, you will need to complete lessons again. Cloud sync is planned for a future release.",
+    plannedFix: "v6.0.0",
+  },
 ]
 
 function cn(...classes: (string | boolean | undefined)[]) {
@@ -82,8 +141,8 @@ function BugCard({ bug, resolved = false }: { bug: typeof currentBugs[0] & { res
     <div className={cn(
       "group relative border rounded-2xl p-6 transition-all",
       resolved
-        ? "bg-emerald-500/5 border-emerald-500/20 hover:bg-emerald-500/10"
-        : "bg-card border-border hover:bg-secondary/30"
+        ? "glass border-emerald-500/20"
+        : "glass"
     )}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
@@ -97,9 +156,9 @@ function BugCard({ bug, resolved = false }: { bug: typeof currentBugs[0] & { res
           <div className="flex items-center gap-3">
             <span className={cn(
               "px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-widest",
-              bug.severity === "High" ? "bg-red-500 text-white" :
-              bug.severity === "Medium" ? "bg-amber-500/20 text-amber-600" :
-              "bg-blue-500/20 text-blue-600"
+              bug.severity === "High" ? "bg-red-500/10 text-code-kw" :
+              bug.severity === "Medium" ? "bg-amber-500/20 text-code-str" :
+              "bg-green-500/20 text-code-num"
             )}>
               {bug.severity} Severity
             </span>
@@ -114,7 +173,7 @@ function BugCard({ bug, resolved = false }: { bug: typeof currentBugs[0] & { res
         </div>
         <div className={cn(
           "rounded-xl px-4 py-2 border",
-          resolved ? "bg-emerald-500/10 border-emerald-500/20" : "bg-secondary border-border/50"
+          resolved ? "glass border-emerald-500/20" : "glass"
         )}>
           <p className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider mb-0.5">Target Fix</p>
           <p className={cn("text-sm font-mono font-bold", resolved ? "text-emerald-600" : "text-foreground")}>{bug.plannedFix}</p>
@@ -122,13 +181,13 @@ function BugCard({ bug, resolved = false }: { bug: typeof currentBugs[0] & { res
       </div>
 
       <div className="space-y-4">
-        <div className="bg-background/50 rounded-xl p-4 border border-border/40">
+        <div className="glass rounded-xl p-4">
           <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Description</h3>
           <p className="text-sm text-foreground/80 leading-relaxed">{bug.description}</p>
         </div>
         <div className={cn(
           "rounded-xl p-4 border",
-          resolved ? "bg-emerald-500/5 border-emerald-500/10" : "bg-red-500/5 border-red-500/10"
+          resolved ? "glass border-emerald-500/10" : "glass border-red-500/10"
         )}>
           <h3 className={cn("text-[10px] font-bold uppercase tracking-widest mb-2", resolved ? "text-emerald-600" : "text-red-600")}>
             {resolved ? "Resolution" : "Workaround"}
@@ -146,9 +205,9 @@ export default function BugsPage() {
       <Navbar />
       <main className="mx-auto max-w-4xl px-6 pt-28 pb-20">
         <div className="mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4">
             <AlertCircle size={12} />
-            Transparency Report · v4.3.0
+            Transparency Report · v5.0.0
           </div>
           <h1 className="text-4xl font-bold text-foreground text-balance mb-4 tracking-tight">Known Bugs</h1>
           <p className="text-sm text-muted-foreground max-w-xl">
@@ -187,9 +246,9 @@ export default function BugsPage() {
           <a
             href="https://github.com/TSSEJED/opensyntax-academy/issues"
             target="_blank" rel="noopener noreferrer"
-            className="flex items-start gap-4 p-6 bg-card border border-border rounded-2xl hover:border-accent/40 transition-all group"
+            className="flex items-start gap-4 p-6 glass rounded-2xl hover:border-accent/40 transition-all group"
           >
-            <div className="p-3 bg-secondary rounded-xl group-hover:bg-accent/10 transition-colors">
+            <div className="p-3 glass rounded-xl group-hover:bg-accent/10 transition-colors">
               <Bug size={20} className="text-muted-foreground group-hover:text-accent" />
             </div>
             <div>
@@ -204,9 +263,9 @@ export default function BugsPage() {
           <a
             href="https://www.instagram.com/http.sejed.official/"
             target="_blank" rel="noopener noreferrer"
-            className="flex items-start gap-4 p-6 bg-card border border-border rounded-2xl hover:border-accent/40 transition-all group"
+            className="flex items-start gap-4 p-6 glass rounded-2xl hover:border-accent/40 transition-all group"
           >
-            <div className="p-3 bg-secondary rounded-xl group-hover:bg-accent/10 transition-colors">
+            <div className="p-3 glass rounded-xl group-hover:bg-accent/10 transition-colors">
               <MessageSquare size={20} className="text-muted-foreground group-hover:text-accent" />
             </div>
             <div>

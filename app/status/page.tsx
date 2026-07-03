@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { useEffect, useState } from "react"
 import {
   CheckCircle2, XCircle, AlertTriangle, Clock, RefreshCw,
-  Globe, Database, Shield, GitBranch, Server, Wifi, Activity,
+  Globe, GitBranch, Server, Wifi, Activity,
   ArrowUpRight
 } from "lucide-react"
 
@@ -32,21 +32,21 @@ interface GitSyncInfo {
 const statusConfig: Record<ServiceStatus, { label: string; color: string; bg: string; icon: React.ReactNode }> = {
   operational: {
     label: "Operational",
-    color: "text-green-600",
+    color: "text-code-num",
     bg: "bg-green-500",
-    icon: <CheckCircle2 size={16} className="text-green-600" />,
+    icon: <CheckCircle2 size={16} className="text-code-num" />,
   },
   degraded: {
     label: "Degraded",
-    color: "text-amber-500",
+    color: "text-code-str",
     bg: "bg-amber-500",
-    icon: <AlertTriangle size={16} className="text-amber-500" />,
+    icon: <AlertTriangle size={16} className="text-code-str" />,
   },
   outage: {
     label: "Major Outage",
-    color: "text-red-500",
+    color: "text-code-kw",
     bg: "bg-red-500",
-    icon: <XCircle size={16} className="text-red-500" />,
+    icon: <XCircle size={16} className="text-code-kw" />,
   },
   checking: {
     label: "Checking…",
@@ -75,10 +75,8 @@ function timeSince(dateStr: string) {
 export default function StatusPage() {
   const [services, setServices] = useState<ServiceInfo[]>([
     { name: "Website (Vercel Edge)", description: "Main frontend application hosted on Vercel's global CDN", status: "checking", icon: <Globe size={18} /> },
-    { name: "API Endpoints", description: "Backend API services including search, progress, and metadata", status: "checking", icon: <Server size={18} /> },
+    { name: "API Availability", description: "Server-side routes and data endpoints", status: "checking", icon: <Server size={18} /> },
     { name: "CDN & Static Assets", description: "Images, fonts, scripts, and stylesheets served via edge locations", status: "checking", icon: <Wifi size={18} /> },
-    { name: "Authentication", description: "OAuth & session management services", status: "checking", icon: <Shield size={18} /> },
-    { name: "Database", description: "PostgreSQL data store for user accounts and progress sync", status: "checking", icon: <Database size={18} /> },
     { name: "GitHub Sync", description: "Source code repository and CI/CD pipeline status", status: "checking", icon: <GitBranch size={18} /> },
   ])
 
@@ -113,12 +111,12 @@ export default function StatusPage() {
         const res = await fetch("/sitemap.xml", { method: "HEAD", cache: "no-store" })
         const latency = Math.round(performance.now() - start)
         results.push({
-          name: "API Endpoints", description: "Backend API services including search, progress, and metadata",
+          name: "API Availability", description: "Server-side routes and data endpoints",
           status: res.ok ? "operational" : "degraded", icon: <Server size={18} />, latency,
           lastChecked: new Date().toISOString(),
         })
       } catch {
-        results.push({ name: "API Endpoints", description: "Backend API services including search, progress, and metadata", status: "outage", icon: <Server size={18} />, lastChecked: new Date().toISOString() })
+        results.push({ name: "API Availability", description: "Server-side routes and data endpoints", status: "outage", icon: <Server size={18} />, lastChecked: new Date().toISOString() })
       }
 
       // 3. CDN check
@@ -135,21 +133,7 @@ export default function StatusPage() {
         results.push({ name: "CDN & Static Assets", description: "Images, fonts, scripts, and stylesheets served via edge locations", status: "outage", icon: <Wifi size={18} />, lastChecked: new Date().toISOString() })
       }
 
-      // 4. Auth — currently no live auth, mark as operational (planned)
-      results.push({
-        name: "Authentication", description: "OAuth & session management services",
-        status: "operational", icon: <Shield size={18} />, latency: 0,
-        lastChecked: new Date().toISOString(),
-      })
-
-      // 5. Database — currently client-side localStorage, always operational
-      results.push({
-        name: "Database", description: "Client-side localStorage persistence (cloud sync planned for v3.1)",
-        status: "operational", icon: <Database size={18} />, latency: 0,
-        lastChecked: new Date().toISOString(),
-      })
-
-      // 6. GitHub sync check
+      // 4. GitHub sync check
       try {
         const start = performance.now()
         const res = await fetch("https://api.github.com/repos/TSSEJED/opensyntax-academy/commits?per_page=1", { cache: "no-store" })
@@ -196,7 +180,7 @@ export default function StatusPage() {
       <main className="mx-auto max-w-4xl px-6 pt-32 pb-24">
         {/* ─── Header ─── */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6">
+          <div className="inline-flex items-center gap-2 glass px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6">
             <Activity size={12} className="text-accent" /> System Status
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
@@ -208,11 +192,11 @@ export default function StatusPage() {
         </div>
 
         {/* ─── Overall Banner ─── */}
-        <div className={`relative overflow-hidden rounded-2xl border p-6 mb-10 transition-all duration-500 ${
-          overall === "operational" ? "border-green-500/30 bg-green-500/5" :
-          overall === "degraded" ? "border-amber-500/30 bg-amber-500/5" :
-          overall === "outage" ? "border-red-500/30 bg-red-500/5" :
-          "border-border bg-secondary/30"
+        <div className={`glass relative overflow-hidden rounded-2xl border p-6 mb-10 transition-all duration-500 ${
+          overall === "operational" ? "border-green-500/30" :
+          overall === "degraded" ? "border-amber-500/30" :
+          overall === "outage" ? "border-red-500/30" :
+          "border-border"
         }`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
@@ -237,7 +221,7 @@ export default function StatusPage() {
             <button
               onClick={runChecks}
               disabled={refreshing}
-              className="flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-xs font-medium hover:bg-secondary transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 glass rounded-lg border border-border px-4 py-2 text-xs font-medium hover:bg-secondary transition-colors disabled:opacity-50"
             >
               <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
               Refresh
@@ -251,7 +235,7 @@ export default function StatusPage() {
           {services.map((svc) => {
             const s = statusConfig[svc.status]
             return (
-              <div key={svc.name} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-border bg-card/50 backdrop-blur-sm p-4 hover:border-border/80 transition-colors">
+              <div key={svc.name} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 glass rounded-xl p-4 hover:border-border/80 transition-colors">
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 text-muted-foreground">{svc.icon}</div>
                   <div>
@@ -266,10 +250,10 @@ export default function StatusPage() {
                     </span>
                   )}
                   <div className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
-                    svc.status === "operational" ? "border-green-500/30 bg-green-500/10 text-green-600" :
-                    svc.status === "degraded" ? "border-amber-500/30 bg-amber-500/10 text-amber-500" :
-                    svc.status === "outage" ? "border-red-500/30 bg-red-500/10 text-red-500" :
-                    "border-border bg-secondary/50 text-muted-foreground"
+                    svc.status === "operational" ? "glass border-green-500/30 text-code-num" :
+                    svc.status === "degraded" ? "glass border-amber-500/30 text-code-str" :
+                    svc.status === "outage" ? "glass border-red-500/30 text-code-kw" :
+                    "glass border-border text-muted-foreground"
                   }`}>
                     {s.icon}
                     {s.label}
@@ -281,30 +265,30 @@ export default function StatusPage() {
         </div>
 
         {/* ─── Deployment Sync Panel ─── */}
-        <div className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 mb-12">
+        <div className="glass rounded-2xl p-6 mb-12">
           <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-4">Deployment Synchronization</h3>
           {gitSync ? (
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1 rounded-xl border border-border bg-background p-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2">Latest GitHub Commit</p>
-                  <div className="flex items-center gap-2 mb-1">
-                    <code className="text-xs font-mono bg-secondary rounded px-2 py-0.5">{gitSync.latestCommitSha}</code>
+<div className="flex-1 glass rounded-xl p-4">
+                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2">Latest GitHub Commit</p>
+                   <div className="flex items-center gap-2 mb-1">
+                     <code className="text-xs font-mono glass rounded px-2 py-0.5">{gitSync.latestCommitSha}</code>
                     {gitSync.latestCommitDate && (
                       <span className="text-[11px] text-muted-foreground">{timeSince(gitSync.latestCommitDate)}</span>
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground truncate">{gitSync.latestCommitMsg}</p>
                 </div>
-                <div className="flex-1 rounded-xl border border-border bg-background p-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2">Deployed Version (Vercel)</p>
-                  <code className="text-xs font-mono bg-secondary rounded px-2 py-0.5">{gitSync.deployedSha}</code>
+<div className="flex-1 glass rounded-xl p-4">
+                   <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 mb-2">Deployed Version (Vercel)</p>
+                   <code className="text-xs font-mono glass rounded px-2 py-0.5">{gitSync.deployedSha}</code>
                 </div>
               </div>
-              <div className={`flex items-center gap-3 rounded-xl border p-4 ${
+              <div className={`flex items-center gap-3 glass rounded-xl border p-4 ${
                 gitSync.inSync
-                  ? "border-green-500/30 bg-green-500/5"
-                  : "border-amber-500/30 bg-amber-500/5"
+                  ? "border-green-500/30"
+                  : "border-amber-500/30"
               }`}>
                 {gitSync.inSync
                   ? <CheckCircle2 size={18} className="text-green-600" />
@@ -331,7 +315,7 @@ export default function StatusPage() {
         </div>
 
         {/* ─── Uptime History (visual placeholder) ─── */}
-        <div className="rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 mb-12">
+        <div className="glass rounded-2xl p-6 mb-12">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">90-Day Uptime</h3>
             <span className="text-xs text-green-600 font-semibold">99.98%</span>
@@ -359,7 +343,7 @@ export default function StatusPage() {
         {/* ─── External Links ─── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <a href="https://github.com/TSSEJED/opensyntax-academy" target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-xl border border-border bg-card/50 p-4 hover:border-accent/30 hover:bg-secondary/50 transition-all group">
+            className="flex items-center justify-between glass rounded-xl p-4 hover:border-accent/30 transition-all group">
             <div>
               <p className="text-sm font-semibold">GitHub Repository</p>
               <p className="text-xs text-muted-foreground">Source code & issues</p>
@@ -367,7 +351,7 @@ export default function StatusPage() {
             <ArrowUpRight size={16} className="text-muted-foreground group-hover:text-accent transition-colors" />
           </a>
           <a href="https://vercel.com" target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-xl border border-border bg-card/50 p-4 hover:border-accent/30 hover:bg-secondary/50 transition-all group">
+            className="flex items-center justify-between glass rounded-xl p-4 hover:border-accent/30 transition-all group">
             <div>
               <p className="text-sm font-semibold">Vercel Dashboard</p>
               <p className="text-xs text-muted-foreground">Deployment logs</p>
@@ -375,7 +359,7 @@ export default function StatusPage() {
             <ArrowUpRight size={16} className="text-muted-foreground group-hover:text-accent transition-colors" />
           </a>
           <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-xl border border-border bg-card/50 p-4 hover:border-accent/30 hover:bg-secondary/50 transition-all group">
+            className="flex items-center justify-between glass rounded-xl p-4 hover:border-accent/30 transition-all group">
             <div>
               <p className="text-sm font-semibold">Report an Issue</p>
               <p className="text-xs text-muted-foreground">Community Instagram</p>

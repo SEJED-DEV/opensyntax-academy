@@ -48,7 +48,7 @@ const PROMPTS: PromptData[] = [
     action: "Get Help",
     href: "https://www.instagram.com/http.sejed.official/",
     external: true,
-    accent: "oklch(0.72 0.17 196)",
+    accent: "oklch(0.75 0.20 85)",
   },
   {
     id: "pwa-app",
@@ -57,7 +57,7 @@ const PROMPTS: PromptData[] = [
     detail: "Install OpenSyntax for offline learning and zero mobile lag.",
     action: "Install Now",
     href: "/#pwa-install",
-    accent: "oklch(0.65 0.25 15)",
+    accent: "oklch(0.60 0.18 145)",
   },
 ]
 
@@ -79,6 +79,7 @@ function saveDismissed(set: Set<string>) {
 export function Prompts() {
   const [active, setActive] = useState<PromptType | null>(null)
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
+  const [showDiscord, setShowDiscord] = useState(false)
   const pathname = usePathname()
   const { available, installPwa } = usePwaInstall()
 
@@ -91,13 +92,11 @@ export function Prompts() {
     const timer = setTimeout(() => {
       let pick: PromptType = "pwa-app"
       if (pathname === "/bugs") pick = "instagram"
-      else if (pathname === "/dashboard") pick = "bugs"
       else if (pathname === "/") pick = "pwa-app"
       else pick = "pwa-app"
 
       if (!stored.has(pick)) {
         if (pick === "pwa-app" && !available) {
-          // Fallback to instagram if PWA not available for install
           setActive("instagram")
         } else {
           setActive(pick)
@@ -108,6 +107,37 @@ export function Prompts() {
     return () => clearTimeout(timer)
   }, [pathname])
 
+  useEffect(() => {
+    const stored = getDismissed()
+    if (stored.has("discord")) return
+
+    let shown = false
+    const maybeShow = () => {
+      if (!shown) {
+        shown = true
+        setShowDiscord(true)
+      }
+    }
+
+    const timer = setTimeout(maybeShow, 30000)
+
+    const onScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight
+      const winHeight = window.innerHeight
+      const scrollable = docHeight - winHeight
+      if (scrollable > 0 && scrollTop / scrollable > 0.5) {
+        maybeShow()
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [])
+
   const dismiss = () => {
     if (active) {
       const next = new Set(dismissed)
@@ -116,6 +146,14 @@ export function Prompts() {
       saveDismissed(next)
       setActive(null)
     }
+  }
+
+  const dismissDiscord = () => {
+    const next = new Set(dismissed)
+    next.add("discord")
+    setDismissed(next)
+    saveDismissed(next)
+    setShowDiscord(false)
   }
 
   const current = PROMPTS.find(p => p.id === active && !dismissed.has(p.id))
@@ -130,57 +168,146 @@ export function Prompts() {
     }
   }
 
+  const hasActivePrompt = active !== null && !dismissed.has(active)
+  const showDiscordBanner = showDiscord && !dismissed.has("discord") && !hasActivePrompt
+  const anyNotification = hasActivePrompt || showDiscordBanner
+  const discordBottom = current ? "148px" : "24px"
+
   return (
-    <AnimatePresence>
-      {current && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] w-[calc(100vw-32px)] sm:w-[300px] pointer-events-auto"
-        >
-          <div className="bg-card border border-border rounded-2xl p-5 shadow-2xl overflow-hidden relative group">
-            <button 
-              onClick={dismiss}
-              className="absolute top-3 right-3 p-1 text-muted-foreground/40 hover:text-foreground transition-colors z-20"
-            >
-              <X size={14} />
-            </button>
-
-            <div className="flex items-start gap-4">
-              <div 
-                className="p-2.5 rounded-xl flex-shrink-0"
-                style={{ background: current.accent + "15", border: `1px solid ${current.accent}20` }}
-              >
-                <current.icon size={18} style={{ color: current.accent }} />
-              </div>
-
-              <div>
-                <h3 className="text-sm font-bold text-foreground mb-1 leading-tight tracking-tight">{current.title}</h3>
-                <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">{current.detail}</p>
-                
-                <Link 
-                  href={current.href}
-                  target={current.external ? "_blank" : undefined}
-                  rel={current.external ? "noopener noreferrer" : undefined}
-                  onClick={handleAction}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-[10px] font-bold transition-all hover:gap-3 shadow-lg"
-                >
-                  {current.action}
-                  <ArrowRight size={12} />
-                </Link>
-              </div>
-            </div>
-
-            {/* Background Glow */}
-            <div 
-              className="absolute -right-4 -bottom-4 h-20 w-20 rounded-full blur-[40px] opacity-10 pointer-events-none"
-              style={{ background: current.accent }}
-            />
-          </div>
-        </motion.div>
+    <>
+      {/* Backdrop */}
+      {anyNotification && (
+        <div className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-[2px]" onClick={() => { setActive(null); setShowDiscord(false) }} />
       )}
-    </AnimatePresence>
+
+      <AnimatePresence>
+        {current && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] w-[calc(100vw-32px)] sm:w-[300px] pointer-events-auto"
+          >
+            <div className="glass rounded-2xl p-5 shadow-2xl overflow-hidden relative group">
+              <button 
+                onClick={dismiss}
+                className="absolute top-3 right-3 p-1 text-muted-foreground/40 hover:text-foreground transition-colors z-20"
+              >
+                <X size={14} />
+              </button>
+
+              <div className="flex items-start gap-4">
+                <div 
+                  className="p-2.5 rounded-xl flex-shrink-0"
+                  style={{ background: current.accent + "15", border: `1px solid ${current.accent}20` }}
+                >
+                  <current.icon size={18} style={{ color: current.accent }} />
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold text-foreground mb-1 leading-tight tracking-tight">{current.title}</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">{current.detail}</p>
+                  
+                  <Link 
+                    href={current.href}
+                    target={current.external ? "_blank" : undefined}
+                    rel={current.external ? "noopener noreferrer" : undefined}
+                    onClick={handleAction}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-[10px] font-bold transition-all hover:gap-3 shadow-lg"
+                  >
+                    {current.action}
+                    <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </div>
+
+              <div 
+                className="absolute -right-4 -bottom-4 h-20 w-20 rounded-full blur-[40px] opacity-10 pointer-events-none"
+                style={{ background: current.accent }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showDiscordBanner && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed right-4 sm:right-6 z-[99] w-[calc(100vw-32px)] sm:w-[300px] pointer-events-auto"
+            style={{ bottom: discordBottom }}
+          >
+            <div className="glass rounded-2xl p-5 shadow-2xl overflow-hidden relative group">
+              <button
+                onClick={dismissDiscord}
+                className="absolute top-3 right-3 p-1 text-muted-foreground/40 hover:text-foreground transition-colors z-20"
+              >
+                <X size={14} />
+              </button>
+
+              <div className="flex items-start gap-4">
+                <div
+                  className="p-2.5 rounded-xl flex-shrink-0"
+                  style={{ background: "var(--discord)15", border: "1px solid var(--discord)20" }}
+                >
+                  <MessageSquare size={18} style={{ color: "var(--discord)" }} />
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold text-foreground mb-1 leading-tight tracking-tight">Join the Cortex HQ Discord</h3>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">
+                    Get help, request ads, suggest features, or just hang out with fellow devs.
+                  </p>
+
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white text-[10px] font-bold transition-all hover:gap-3 shadow-lg"
+                    style={{ background: "var(--discord)" }}
+                  >
+                    Join Discord →
+                  </a>
+                </div>
+              </div>
+
+              <div
+                className="absolute -right-4 -bottom-4 h-20 w-20 rounded-full blur-[40px] opacity-10 pointer-events-none"
+                style={{ background: "var(--discord)" }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
+export function ContactDevBanner() {
+  return (
+    <div className="mx-auto max-w-7xl px-6 py-4">
+      <div className="glass rounded-xl p-4 flex items-center justify-between flex-wrap gap-3">
+        <p className="text-xs sm:text-sm text-muted-foreground">
+          Need a custom bot or project?{" "}
+          <a
+            href="https://sejed.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-foreground hover:text-accent transition-colors"
+          >
+            Contact the dev at sejed.dev
+          </a>
+        </p>
+        <a
+          href="https://sejed.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-[10px] font-bold transition-all hover:gap-3 shadow-lg"
+        >
+          Contact Now
+          <ArrowRight size={12} />
+        </a>
+      </div>
+    </div>
+  )
+}

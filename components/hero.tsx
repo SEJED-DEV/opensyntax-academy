@@ -1,12 +1,95 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
-import { ArrowRight, Instagram } from "lucide-react"
+import { useState, useEffect, JSX } from "react"
+import { ArrowRight, Instagram, Play, Circle, GitBranch, Terminal as TerminalIcon } from "lucide-react"
 import { motion, Variants } from "framer-motion"
-import { Hero3DScene } from "./hero-3d-scene"
 import { InteractiveTerminal } from "./interactive-terminal"
 import { getTranslations, Locale, DEFAULT_LOCALE, I18N_STORAGE_KEY, LOCALES } from "@/lib/i18n"
+
+const CODE_LINES = [
+  { text: '// OpenSyntax Academy — v5.0.0', color: 'text-emerald-500/70 italic' },
+  { text: '// Premium open-source developer education', color: 'text-emerald-500/70 italic' },
+  { text: '', color: '' },
+  { text: 'import { Mastery } from \'opensyntax\'', color: 'text-code-kw' },
+  { text: '', color: '' },
+  { text: 'const student = await Academy.enroll({', color: 'text-code-fn' },
+  { text: '  path: \'full-stack\',', color: 'text-code-str' },
+  { text: '  level: \'advanced\',', color: 'text-code-str' },
+  { text: '  cost: 0,  // always free', color: 'text-code-num' },
+  { text: '})', color: 'text-foreground' },
+  { text: '', color: '' },
+  { text: 'await student.learn({', color: 'text-code-fn' },
+  { text: '  track: \'Web Engineering\',', color: 'text-code-str' },
+  { text: '  lessons: \'250+\',', color: 'text-code-str' },
+  { text: '  community: \'Join us on Instagram\',', color: 'text-code-str' },
+  { text: '})', color: 'text-foreground' },
+]
+
+function CodeEditor() {
+  const [visibleLines, setVisibleLines] = useState(0)
+  const [showCursor, setShowCursor] = useState(true)
+
+  useEffect(() => {
+    if (visibleLines < CODE_LINES.length) {
+      const timer = setTimeout(() => setVisibleLines(v => v + 1), 80)
+      return () => clearTimeout(timer)
+    }
+  }, [visibleLines])
+
+  useEffect(() => {
+    const cursor = setInterval(() => setShowCursor(c => !c), 530)
+    return () => clearInterval(cursor)
+  }, [])
+
+  return (
+    <div className="glass rounded-2xl overflow-hidden shadow-2xl border border-border/50 w-full max-w-xl mx-auto">
+      {/* Tab bar */}
+      <div className="flex items-center justify-between px-4 py-2 bg-background/80 border-b border-border/50">
+        <div className="flex items-center gap-1.5">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-500/70" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+            <div className="w-3 h-3 rounded-full bg-emerald-500/70" />
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-[11px] text-muted-foreground/60 font-mono">
+          <TerminalIcon size={12} />
+          <span>opensyntax.tsx</span>
+        </div>
+        <div className="w-14" />
+      </div>
+
+      {/* Code area */}
+      <div className="flex bg-background/50">
+        {/* Line numbers gutter */}
+        <div className="select-none py-4 pr-3 pl-4 text-right text-[11px] leading-6 font-mono text-muted-foreground/20 border-r border-border/30 min-w-[3rem]">
+          {CODE_LINES.map((_, i) => (
+            <div key={i}>{i + 1}</div>
+          ))}
+        </div>
+        {/* Code content */}
+        <div className="py-4 pl-4 pr-6 overflow-x-auto w-full">
+          {CODE_LINES.slice(0, visibleLines).map((line, i) => (
+            <div key={i} className="text-[13px] leading-6 font-mono whitespace-pre">
+              {i === visibleLines - 1 && visibleLines < CODE_LINES.length ? (
+                <span>
+                  <span className={line.color || 'text-foreground/80'}>{line.text}</span>
+                  <span className={`inline-block w-[2px] h-[15px] ml-0.5 bg-accent align-middle ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`} />
+                </span>
+              ) : (
+                <span className={line.color || 'text-foreground/80'}>{line.text}</span>
+              )}
+            </div>
+          ))}
+          {visibleLines >= CODE_LINES.length && (
+            <span className={`inline-block w-[2px] h-[15px] ml-0.5 bg-accent align-middle ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`} />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Hero() {
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE)
@@ -35,90 +118,106 @@ export function Hero() {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+      transition: { staggerChildren: 0.12, delayChildren: 0.15 }
     }
   }
 
   const item: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 15 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   }
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-6 pt-28 pb-20 text-center overflow-hidden">
-      {/* 3D Scene Background */}
-      {!isMobile && <Hero3DScene />}
-
-      {/* Light Mode Grid bg */}
-      <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style={{ clipPath: "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" }} />
+    <section className="relative flex flex-col items-center justify-center min-h-screen px-4 pt-20 pb-0 overflow-hidden">
+      {/* VS Code Editor Background */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, oklch(0.7 0.17 196 / 0.2) 1px, transparent 1px),
+              linear-gradient(to bottom, oklch(0.7 0.17 196 / 0.2) 1px, transparent 1px)
+            `,
+            backgroundSize: "24px 24px"
+          }} />
+        {/* Subtle glow orbs */}
+        <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] rounded-full opacity-[0.08] dark:opacity-[0.12]"
+          style={{ background: "radial-gradient(circle, oklch(0.72 0.17 196), transparent 60%)" }} />
+        <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] rounded-full opacity-[0.08] dark:opacity-[0.12]"
+          style={{ background: "radial-gradient(circle, oklch(0.60 0.22 295), transparent 60%)" }} />
       </div>
-
-      <div className="absolute inset-0 -z-20"
-        style={{ backgroundImage: "linear-gradient(to right, oklch(0.9 0.03 260 / 0.5) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.9 0.03 260 / 0.5) 1px, transparent 1px)", backgroundSize: "44px 44px" }}
-        aria-hidden="true" />
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex flex-col items-center max-w-5xl"
+        className="relative z-10 flex flex-col items-center w-full max-w-5xl"
       >
-        {/* Badge */}
-        <motion.div variants={item} className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/50 backdrop-blur-md px-5 py-2 text-sm text-foreground shadow-sm hover:shadow-md transition-shadow">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-          </span>
-          {t.hero_badge}
+        {/* VS Code-style badge */}
+        <motion.div variants={item} className="mb-6">
+          <div className="inline-flex items-center gap-2 glass rounded-lg px-3 py-1.5 text-xs text-muted-foreground font-mono border border-border/50">
+            <Circle size={6} className="fill-emerald-500 text-emerald-500" />
+            <span className="text-code-kw">stable</span>
+            <span className="text-muted-foreground/40 mx-0.5">·</span>
+            <span className="text-[10px]">v5.0.0</span>
+          </div>
         </motion.div>
 
-        {/* Headline */}
-        <motion.div variants={item}>
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tight text-foreground leading-[1.1]">
-            {t.hero_headline_1}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-purple-500 to-indigo-600">
-              {t.hero_headline_2}
-            </span>
-          </h1>
+        {/* Code Editor Hero */}
+        <motion.div variants={item} className="w-full flex flex-col lg:flex-row items-center gap-6 mb-8">
+          {/* Code Editor */}
+          <div className="w-full lg:flex-1">
+            <CodeEditor />
+          </div>
+
+          {/* Terminal */}
+          <div className="w-full lg:w-96">
+            <InteractiveTerminal />
+          </div>
         </motion.div>
 
-        <motion.div variants={item}>
-          <p className="mt-8 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed">
-            {t.hero_sub}
-          </p>
-        </motion.div>
-
-        {/* CTAs */}
-        <motion.div variants={item} className="mt-12 flex flex-wrap gap-4 justify-center">
-          <Link href="#courses" className="group inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-base font-bold bg-primary text-primary-foreground shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        {/* CTA Buttons */}
+        <motion.div variants={item} className="flex flex-wrap gap-3 justify-center mb-8">
+          <Link href="#courses" className="group inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-bold bg-accent text-accent-foreground hover:opacity-90 transition-all shadow-xl shadow-accent/20">
+            <Play size={14} className="fill-current" />
             {t.hero_cta_start}
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
-          <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-bold border-2 border-border text-foreground hover:border-pink-500 hover:text-pink-500 shadow-sm transition-all duration-300 hover:shadow-lg">
-            <Instagram size={20} className="w-5 h-5 text-current" />
+          <Link href="/courses/web" className="group inline-flex items-center gap-2 rounded-lg glass px-5 py-3 text-sm font-bold text-foreground hover:bg-secondary/50 transition-all border border-border/50">
+            <GitBranch size={14} />
+            Explore Curriculum
+          </Link>
+          <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-lg glass px-5 py-3 text-sm font-bold text-foreground hover:text-pink-500 transition-all border border-border/50">
+            <Instagram size={14} />
             {t.hero_cta_community}
           </a>
         </motion.div>
 
-        {/* Terminal Widget */}
-        <motion.div variants={item} className="w-full mt-20 z-20">
-          <InteractiveTerminal />
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div variants={item} className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 w-full max-w-4xl border-t border-border/50 pt-10">
-          {[
-            ["13",   t.stat_courses],
-            ["250+", t.stat_lessons],
-            ["50h+", t.stat_content],
-            ["100%", t.stat_free],
-          ].map(([n, l]) => (
-            <div key={l} className="text-center group">
-              <p className="text-4xl md:text-5xl font-black text-foreground tracking-tight group-hover:scale-110 group-hover:text-primary transition-all duration-300 delay-75">{n}</p>
-              <p className="text-sm font-medium text-muted-foreground mt-2 uppercase tracking-widest">{l}</p>
-            </div>
-          ))}
+        {/* VS Code Status Bar */}
+        <motion.div variants={item} className="w-full glass rounded-t-2xl rounded-b-lg px-4 sm:px-6 py-3 border border-border/50 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-[10px] font-mono text-muted-foreground/60">
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1">
+              <GitBranch size={11} className="text-code-kw" />
+              <span className="text-code-kw">main</span>
+            </span>
+            <span className="hidden sm:inline text-muted-foreground/30">|</span>
+            <span className="hidden sm:flex items-center gap-1">
+              <Circle size={6} className="fill-emerald-500 text-emerald-500" />
+              <span>14 courses</span>
+            </span>
+            <span className="hidden sm:inline text-muted-foreground/30">|</span>
+            <span>250+ lessons</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline">UTF-8</span>
+            <span className="hidden sm:inline text-muted-foreground/30">|</span>
+            <span className="text-code-str">TypeScript</span>
+            <span className="text-muted-foreground/30">|</span>
+            <span>
+              <span className="text-code-num">50</span>h+ content
+            </span>
+            <span className="text-muted-foreground/30">|</span>
+            <span className="text-code-str">free</span>
+          </div>
         </motion.div>
       </motion.div>
     </section>

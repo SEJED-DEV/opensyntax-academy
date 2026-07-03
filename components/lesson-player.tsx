@@ -67,7 +67,7 @@ function InteractiveQuiz({ quiz, accentColor }: { quiz: QuizQuestion[], accentCo
         const isCorrect = answers[qIdx] === q.correctIndex
 
         return (
-          <div key={qIdx} className="bg-card border border-border rounded-2xl p-6 sm:p-8 hover:border-border/80 transition-colors shadow-sm">
+          <div key={qIdx} className="glass rounded-2xl p-6 sm:p-8 hover:shadow-xl transition-all">
             <p className="text-sm font-semibold text-foreground mb-5 leading-relaxed">{qIdx + 1}. {q.question}</p>
             <div className="space-y-3 pl-1">
               {q.options.map((opt, oIdx) => {
@@ -82,9 +82,9 @@ function InteractiveQuiz({ quiz, accentColor }: { quiz: QuizQuestion[], accentCo
 
                 if (hasAnswered) {
                   if (oIdx === q.correctIndex) {
-                    optionClass = "border-emerald-500 bg-emerald-500/10 text-emerald-700 font-medium"
+                    optionClass = "border-code-num bg-code-num/10 text-code-num font-medium"
                   } else if (isSelected && !isCorrect) {
-                    optionClass = "border-red-500 bg-red-500/10 text-red-700 opacity-80"
+                    optionClass = "border-code-kw bg-code-kw/10 text-code-kw opacity-80"
                   } else {
                     optionClass = "border-border opacity-40 text-muted-foreground"
                   }
@@ -119,8 +119,8 @@ function InteractiveQuiz({ quiz, accentColor }: { quiz: QuizQuestion[], accentCo
                   <div className={cn(
                     "p-5 rounded-xl text-sm border",
                     isCorrect
-                      ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700"
-                      : "bg-red-500/10 border-red-500/20 text-red-700"
+                      ? "bg-code-num/10 border-code-num/20 text-code-num"
+                      : "bg-code-kw/10 border-code-kw/20 text-code-kw"
                   )}>
                     <p className="mb-1.5 font-bold uppercase tracking-wide text-xs">
                       {isCorrect ? "✓ Correct!" : "✗ Incorrect"}
@@ -208,7 +208,7 @@ export function LessonPlayer({
 
       {/* ── SIDEBAR ───────────────── */}
       <aside className={cn(
-        "flex-shrink-0 border-r border-border bg-sidebar h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden transition-all duration-300 z-40 fixed lg:sticky top-[60px] left-0",
+        "flex-shrink-0 border-r border-border glass h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden transition-all duration-300 z-40 fixed lg:sticky top-[60px] left-0 rounded-r-2xl",
         sidebarOpen ? "w-[85vw] md:w-80 translate-x-0" : "w-0 -translate-x-full lg:translate-x-0"
       )}>
         <div className="min-w-[85vw] md:min-w-80">
@@ -227,10 +227,10 @@ export function LessonPlayer({
                   <span className="flex items-center gap-1 font-medium">
                     <User className="w-3 h-3" /> {instructor}
                   </span>
-                  <span className="flex items-center gap-1 bg-amber-50 rounded-full px-1.5 py-0.5 border border-amber-100 text-amber-700 font-bold">
-                    <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
+                  <span className="flex items-center gap-1 glass rounded-full px-1.5 py-0.5 text-amber-500 font-bold">
+                    <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
                     {rating}
-                    <span className="text-[9px] text-amber-600/60 font-medium">({reviewCount})</span>
+                    <span className="text-[9px] text-muted-foreground/60 font-medium">({reviewCount})</span>
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -257,6 +257,7 @@ export function LessonPlayer({
           </div>
 
           {/* Module navigation */}
+          <div className="px-5 pt-3 pb-2 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Curriculum</div>
           <nav aria-label="Course modules">
             {modules.map((mod) => (
               <div key={mod.id} className="border-b border-sidebar-border last:border-b-0">
@@ -278,7 +279,7 @@ export function LessonPlayer({
                       )}
                       style={isActive ? { borderLeftColor: accentColor } : {}}
                     >
-                      <div className={cn("mt-0.5 flex-shrink-0 transition-colors", isDone ? "text-emerald-600" : "text-muted-foreground/40")}>
+                      <div className={cn("mt-0.5 flex-shrink-0 transition-colors", isDone ? "text-code-num" : "text-muted-foreground/40")}>
                         {isDone ? <CheckCircle2 size={14} /> : <Circle size={14} />}
                       </div>
                       <div className="min-w-0">
@@ -313,7 +314,7 @@ export function LessonPlayer({
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label="Toggle sidebar"
-            className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-secondary hover:bg-card transition-colors text-muted-foreground hover:text-foreground flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center rounded-lg glass text-muted-foreground hover:text-foreground flex-shrink-0"
           >
             {sidebarOpen ? <X size={14} /> : <Menu size={14} />}
           </button>
@@ -383,7 +384,7 @@ export function LessonPlayer({
                   {activeIdx > 0 && (
                     <button
                       onClick={() => setActiveId(allLessons[activeIdx - 1].id)}
-                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium border border-border bg-secondary hover:bg-card text-muted-foreground hover:text-foreground transition-colors"
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium glass hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <ChevronLeft size={13} />Prev
                     </button>
@@ -393,7 +394,7 @@ export function LessonPlayer({
                     className={cn(
                       "flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all",
                       completed.has(activeLesson.id)
-                        ? "bg-secondary text-muted-foreground hover:text-foreground border border-border"
+                        ? "glass text-muted-foreground hover:text-foreground"
                         : "text-white hover:opacity-90"
                     )}
                     style={completed.has(activeLesson.id) ? {} : accentBgStyle}
@@ -406,7 +407,7 @@ export function LessonPlayer({
                 {activeIdx < allLessons.length - 1 ? (
                   <button
                     onClick={() => { toggle(activeLesson.id); setActiveId(allLessons[activeIdx + 1].id) }}
-                    className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold border border-border bg-secondary text-foreground hover:bg-card transition-colors"
+                    className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold glass hover:bg-secondary/50 text-foreground transition-colors"
                   >
                     Next Lesson <ChevronRight size={13} />
                   </button>

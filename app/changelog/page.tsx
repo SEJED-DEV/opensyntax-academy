@@ -7,6 +7,28 @@ export const metadata = {
   description: "Recent updates and architectural changes to the platform.",
 }
 
+// ── v5.0.0 ──
+const v50Added = [
+  { label: "New Brand Identity", detail: "Designed a professional logo with a gradient chevron-bracket monogram. Updated all favicon files, navbar, and footer with the new brand mark. Replaced the old 'OS' badge with a polished SVG icon." },
+  { label: "VS Code Glass Redesign", detail: "Complete platform-wide UI overhaul. All 27 pages now use the glass design system with backdrop blur, VS Code editor-inspired hero with live code typing animation, syntax-highlighting color tokens (code-kw, code-str, code-fn, code-num), and a VS Code status bar strip in the hero and footer." },
+  { label: "Massive Course Expansion", detail: "All 14 course tracks expanded from 2-3 modules to 5 modules each with 15-20 lessons per course. New modules include: Performance & Monitoring, DeFi Deep Dive, Incident Response, Microservices Architecture, FAANG System Design Case Studies, Rust in Production, RLHF & Evaluation, and Advanced Kubernetes. Every lesson includes real code examples and quiz questions." },
+  { label: "Cortex HQ AD Integration", detail: "New advertisement section on the homepage promoting Cortex HQ. Users can request their own ad placements by joining the community Discord server." },
+  { label: "Footer Attribution", detail: "Replaced Discord Blueprint link with 'made by sejeddev' attribution in the status bar." },
+]
+
+const v50Fixed = [
+  { label: "[BRD-001] Discord Logo in Community CTA", detail: "The Community CTA button was using Discord's SVG icon instead of Instagram's camera icon. Replaced with the correct Instagram icon path." },
+  { label: "[BRD-002] Dashboard Removed", detail: "Removed the /dashboard page entirely since localStorage progress was not persistent across browser sessions. All navigation references to the dashboard have been cleaned up." },
+  { label: "[BRD-003] Navbar Dropdown Hover Gap", detail: "Fixed the invisible gap between navbar dropdown buttons and their menus that caused premature closing on hover. Added click-to-toggle support for touch devices." },
+  { label: "[BRD-004] Template Literal Escapes in Course Content", detail: "Fixed 5 course pages where raw `${}` and backtick characters in code examples broke the Next.js build. Escaped all template literal syntax in cybersecurity, rust, mobile, system-design, and discord courses." },
+  { label: "[BRD-005] i18n Nav Keys for Dashboard", detail: "Removed i18n translation references to the dashboard navigation item." },
+]
+
+const v50Removed = [
+  "Dashboard page and all related navigation links",
+  "Discord Blueprint link from footer",
+]
+
 // ── v4.3.0 ──
 const v43Added = [
   { label: "\"Minus Zero\" Foundations Track", detail: "Introduced a mandatory onboarding track (/courses/foundations) covering Hardware Logic, Internet Protocols, and Terminal internals to bridge absolute beginners." },
@@ -134,6 +156,58 @@ export default function ChangelogPage() {
 
         <div className="space-y-20">
 
+          {/* ── v5.0 Released ── */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" />
+              <h2 className="text-xl font-bold text-foreground">v5.0.0 — VS Code Glass Redesign</h2>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Calendar size={12} />
+                <span>Released July 3, 2026</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v50Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
+                  <Wrench size={18} />
+                  <h3 className="font-semibold">Fixed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v50Fixed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
+                  <Trash2 size={18} />
+                  <h3 className="font-semibold">Removed</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                  {v50Removed.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
+            </div>
+          </section>
+
           {/* ── v4.3 Released ── */}
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -146,8 +220,8 @@ export default function ChangelogPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -160,8 +234,8 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-fn mb-5">
                   <RefreshCw size={18} />
                   <h3 className="font-semibold">Changed</h3>
                 </div>
@@ -188,8 +262,8 @@ export default function ChangelogPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -202,8 +276,8 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
                   <Wrench size={18} />
                   <h3 className="font-semibold">Fixed</h3>
                 </div>
@@ -230,8 +304,8 @@ export default function ChangelogPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -244,8 +318,8 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
                   <Wrench size={18} />
                   <h3 className="font-semibold">Fixed</h3>
                 </div>
@@ -272,8 +346,8 @@ export default function ChangelogPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -286,8 +360,8 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
                   <Wrench size={18} />
                   <h3 className="font-semibold">Fixed</h3>
                 </div>
@@ -300,7 +374,7 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
+              <div className="glass rounded-2xl p-6 border border-dashed border-accent/30">
                 <div className="flex items-center gap-2 text-accent mb-4">
                   <Rocket size={16} />
                   <h3 className="font-semibold text-sm">Planned for v4.x</h3>
@@ -330,8 +404,8 @@ export default function ChangelogPage() {
             
             <div className="space-y-6">
               {/* Added to v3.0 so far */}
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -344,8 +418,8 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
                   <Wrench size={18} />
                   <h3 className="font-semibold">Fixed</h3>
                 </div>
@@ -358,7 +432,7 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
-              <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
+              <div className="glass rounded-2xl p-6 border border-dashed border-accent/30">
                 <div className="flex items-center gap-2 text-accent mb-4">
                   <Rocket size={16} />
                   <h3 className="font-semibold text-sm">Planned for v3.0</h3>
@@ -390,8 +464,8 @@ export default function ChangelogPage() {
 
             <div className="space-y-6">
               {/* Added */}
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-str mb-5">
                   <Plus size={18} />
                   <h3 className="font-semibold">Added</h3>
                 </div>
@@ -405,8 +479,8 @@ export default function ChangelogPage() {
               </div>
 
               {/* Changed */}
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-blue-600 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-fn mb-5">
                   <RefreshCw size={18} />
                   <h3 className="font-semibold">Changed</h3>
                 </div>
@@ -420,8 +494,8 @@ export default function ChangelogPage() {
               </div>
 
               {/* Removed */}
-              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex items-center gap-2 text-red-500 mb-5">
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-2 text-code-kw mb-5">
                   <Trash2 size={18} />
                   <h3 className="font-semibold">Removed</h3>
                 </div>
@@ -442,7 +516,7 @@ export default function ChangelogPage() {
                 <span>January 2026</span>
               </div>
             </div>
-            <div className="bg-card/20 border border-border/40 rounded-2xl p-6 opacity-80">
+            <div className="glass rounded-2xl p-6 opacity-80">
               <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
                 <li>Initial platform launch with Discord Development and Full-Stack Web Engineering paths.</li>
                 <li>Sidebar-driven lesson player with basic progress tracking.</li>

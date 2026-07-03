@@ -1,0 +1,20 @@
+<svg width="215" height="48" viewBox="0 0 215 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="oklch(0.72 0.17 196)"/>
+      <stop offset="100%" stop-color="oklch(0.60 0.22 295)"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon mark -->
+  <rect width="38" height="38" rx="9" fill="url(#g)"/>
+  <!-- Chevrons and S in icon -->
+  <path d="M12 16 L8 20 L12 24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M18 15 H24 C26 15 27 16.5 27 18 V20 C27 21.5 26 23 24 23 H20 C18 23 17 24.5 17 26 V27.5 C17 29 18 30 20 30 H27" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M28 22 L30.5 26 L28 30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+  <!-- Open text -->
+  <text x="50" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="currentColor" letter-spacing="-0.3">Open</text>
+  <!-- Syntax text -->
+  <text x="50" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="currentColor" letter-spacing="-0.2">
+    <tspan fill="url(#g)">Syntax</tspan>
+  </text>
+</svg>
