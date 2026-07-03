@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Instagram](https://img.shields.io/badge/Instagram-Join_Community-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/http.sejed.official/)
-[![Version](https://img.shields.io/badge/version-4.3.0-violet)](https://opensyntax-academy.vercel.app/changelog)
+[![Version](https://img.shields.io/badge/version-5.0.0-violet)](https://opensyntax-academy.vercel.app/changelog)
 
 ---
 
