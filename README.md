@@ -8,7 +8,7 @@
 
 ---
 
-## About Version 4.3.0 — The "Minus Zero" & PWA Install Engine
+## About Version 5.5.0 — The "Minus Zero" & PWA Install Engine
 
 OpenSyntax 4.3.0 marks a milestone in platform usability and onboarding. We have introduced the **"Minus Zero" Foundations** track — a mandatory onboarding layer for absolute beginners covering hardware logic, internet protocols, and terminal internals. 
 
