@@ -10,7 +10,7 @@
 
 ## About Version 5.0.0 — The "Minus Zero" & PWA Install Engine
 
-OpenSyntax 4.3.0 marks a milestone in platform usability and onboarding. We have introduced the **"Minus Zero" Foundations** track — a mandatory onboarding layer for absolute beginners covering hardware logic, internet protocols, and terminal internals. 
+OpenSyntax 5.0.0 marks a milestone in platform usability and onboarding. We have introduced the **"Minus Zero" Foundations** track — a mandatory onboarding layer for absolute beginners covering hardware logic, internet protocols, and terminal internals. 
 
 This release also features a **Functional PWA Installation Engine**. Users can now install the OpenSyntax Academy app directly from the platform via a native browser prompt. Furthermore, all 11 core domain tracks have been fully restructured into a synchronized **3-Tier Architecture** (Foundations, Intermediate, Production), ensuring a consistent pedagogical journey from syntax to scaling.
 
